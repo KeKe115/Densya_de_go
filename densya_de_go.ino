@@ -23,8 +23,8 @@
 //  定義マクロ
 //--------------------------------------------------------------------
 
-#define PWMOUT 3
-#define PWMIN  4
+#define PWMOUT1   9
+#define PWMOUT2  10
 
 //====================================================================
 //  大域宣言
@@ -82,10 +82,9 @@ void setup()
 
     // Poll current state once.
     PSX.updateState(PSX_PAD1);
-    // 3ピンからpwm出力
-    pinMode( PWMOUT, OUTPUT );
-    // 4ピンは入力
-    pinMode( PWMIN, OUTPUT );
+    // 9,10ピンからpwm出力
+    pinMode( PWMOUT1, OUTPUT );
+    pinMode( PWMOUT2, OUTPUT );
 }
 
 //====================================================================
@@ -109,10 +108,10 @@ void loop()
     Serial.println(speed);
 
     // pwm出力
-    analogWrite( PWMOUT, speed );
-    digitalWrite( PWMIN, LOW );
+    analogWrite( PWMOUT1, speed );
+    analogWrite( PWMOUT2, 0);
 
-    delay(100);
+    delay(50);      // ポーリング間隔が65msを超えるとワンハンドルタイプは取得不可になる。
 }
 
 
